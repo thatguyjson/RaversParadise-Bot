@@ -263,9 +263,9 @@ async def on_ready():
             ♀️ = She/Her
             🦖 = They/Them
             """)
-            await role_msg.add_reaction("♂️")
-            await role_msg.add_reaction("♀️")
-            await role_msg.add_reaction("🦖")
+            await roles_msg.add_reaction("♂️")
+            await roles_msg.add_reaction("♀️")
+            await roles_msg.add_reaction("🦖")
             message_ids["reaction_roles_id"] = roles_msg.id
             await log_to_channel("Reaction role setup complete.")
         except Exception as e:
