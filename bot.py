@@ -192,7 +192,7 @@ down below is on_ready + bot.run
 @bot.event
 async def on_ready():
     global welcomeChannel
-    welcomeChannel = bot.get_channel(1441256988997582991)
+    welcomeChannel = bot.get_channel(1479274318923042931)
     if welcomeChannel is None:
         await log_to_channel("Could not find the welcome channel.")
     else:
