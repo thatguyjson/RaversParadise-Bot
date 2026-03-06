@@ -58,9 +58,8 @@ async def log_to_channel(message):
 @bot.command()
 @commands.check(is_owner)
 async def ping(ctx):
-    latency_message = f'Ping: {round(bot.latency * 1000)} ms'
+    latency_message = f'Pong! {round(bot.latency * 1000)} ms'
     await ctx.send(latency_message)
-    await log_to_channel(latency_message)
 
 @bot.event
 async def on_member_join(member):
