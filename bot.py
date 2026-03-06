@@ -58,7 +58,7 @@ async def log_to_channel(message):
 @bot.command()
 @commands.check(is_owner)
 async def ping(ctx):
-    latency_message = f'Pong! {round(bot.latency * 1000)} ms <#1479270319431876768>'
+    latency_message = f'Pong! {round(bot.latency * 1000)} ms'
     await ctx.send(latency_message)
 
 @bot.event
@@ -66,17 +66,17 @@ async def on_member_join(member):
     if welcomeChannel is not None:
         message_type = random.randint(1, 11)
         messages = {
-            1: f"DAMN {str(member.mention)} look at you...",
-            2: f"{str(member.mention)} just joined! Hows it goin' cutie :3",
-            3: f"{str(member.mention)} just fell from heaven. Oh how lucky we are",
-            4: f"{str(member.mention)} looks absolutely stunning. Welcome!",
-            5: f"{str(member.mention)} looks just like a dream, prettiest person we've ever seen",
-            6: f"{str(member.mention)} has got to be the best looking person here :O",
-            7: f"Hey {str(member.mention)}, whats cookin good lookin ; )",
-            8: f"The way {str(member.mention)} joined the server. Very Demure. Very Mindful",
-            9: f"{str(member.mention)} may look good, I am gonna make them my play toy.",
-            10: f"{str(member.mention)} are you https? Because without you, im ://",
-            11: f"Hey {str(member.mention)} if you were a vegetable, you'd be a cute-cumber."
+            1: f"DAMN {str(member.mention)} look at you... -> Go Verify in <#1479270319431876768>",
+            2: f"{str(member.mention)} just joined! Hows it goin' cutie :3 -> Go Verify in <#1479270319431876768>",
+            3: f"{str(member.mention)} just fell from heaven. Oh how lucky we are -> Go Verify in <#1479270319431876768>",
+            4: f"{str(member.mention)} looks absolutely stunning. Welcome! -> Go Verify in <#1479270319431876768>",
+            5: f"{str(member.mention)} looks just like a dream, prettiest person we've ever seen -> Go Verify in <#1479270319431876768>",
+            6: f"{str(member.mention)} has got to be the best looking person here :O -> Go Verify in <#1479270319431876768>",
+            7: f"Hey {str(member.mention)}, whats cookin good lookin ; ) -> Go Verify in <#1479270319431876768>",
+            8: f"The way {str(member.mention)} joined the server. Very Demure. Very Mindful -> Go Verify in <#1479270319431876768>",
+            9: f"{str(member.mention)} may look good, I am gonna make them my play toy. -> Go Verify in <#1479270319431876768>",
+            10: f"{str(member.mention)} are you https? Because without you, im :// -> Go Verify in <#1479270319431876768>",
+            11: f"Hey {str(member.mention)} if you were a vegetable, you'd be a cute-cumber. -> Go Verify in <#1479270319431876768>"
         }
         welcome_message = messages[message_type]
         await welcomeChannel.send(welcome_message)
