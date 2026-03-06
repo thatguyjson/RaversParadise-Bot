@@ -21,13 +21,18 @@ bot = commands.Bot(command_prefix='?', intents=intents)
 """
 big info section cause tee hee i love information so much!
 """
-
 message_ids = {}
 STAFF_CHANNEL_ID = 1479282567558598848
 LOG_CHANNEL_ID = 1479282492149203159
 ROLE_NAME = "*"
 VerifyName = "Raver"
 VerifyRole = "✅"
+SheHerName = "She/Her"
+HeHimName = "He/Him"
+TheyThemName = "They/Them"
+SheHerRole = "♀️"
+HeHimRole = "♂️"
+TheyThemRole = "🦖"
 dripMention = "<@639904427624628224>" # can use this in (f'x') text to @ myself in discord
 dripID = "639904427624628224"
 
@@ -95,6 +100,24 @@ async def on_raw_reaction_add(payload):
         if role is not None:
             await member.add_roles(role)
             await log_to_channel(f'Assigned {VerifyName} to {member.display_name}')
+            
+    if payload.message_id == message_ids.get('reaction_roles_id') and str(payload.emoji) == SheHerRole:
+        role = nextcord.utils.get(guild.roles, name=SheHerName)
+        if role is not None:
+            await member.add_roles(role)
+            await log_to_channel(f'Assigned {SheHerName} to {member.display_name}')
+            
+    if payload.message_id == message_ids.get('reaction_roles_id') and str(payload.emoji) == HeHimRole:
+        role = nextcord.utils.get(guild.roles, name=HeHimName)
+        if role is not None:
+            await member.add_roles(role)
+            await log_to_channel(f'Assigned {HeHimName} to {member.display_name}')
+            
+    if payload.message_id == message_ids.get('reaction_roles_id') and str(payload.emoji) == TheyThemRole:
+        role = nextcord.utils.get(guild.roles, name=TheyThemName)
+        if role is not None:
+            await member.add_roles(role)
+            await log_to_channel(f'Assigned {TheyThemName} to {member.display_name}')
 
 @bot.event
 async def on_raw_reaction_remove(payload):
@@ -111,6 +134,24 @@ async def on_raw_reaction_remove(payload):
         if role is not None:
             await member.remove_roles(role)
             await log_to_channel(f'Removed {VerifyName} from {member.display_name}')
+
+    if payload.message_id == message_ids.get('reaction_roles_id') and str(payload.emoji) == SheHerRole:
+        role = nextcord.utils.get(guild.roles, name=SheHerName)
+        if role is not None:
+            await member.remove_roles(role)
+            await log_to_channel(f'Removed {SheHerName} from {member.display_name}')
+            
+    if payload.message_id == message_ids.get('reaction_roles_id') and str(payload.emoji) == HeHimRole:
+        role = nextcord.utils.get(guild.roles, name=HeHimName)
+        if role is not None:
+            await member.add_roles(role)
+            await log_to_channel(f'Removed {HeHimName} from {member.display_name}')
+            
+    if payload.message_id == message_ids.get('reaction_roles_id') and str(payload.emoji) == TheyThemRole:
+        role = nextcord.utils.get(guild.roles, name=TheyThemName)
+        if role is not None:
+            await member.add_roles(role)
+            await log_to_channel(f'Removed {TheyThemName} from {member.display_name}')
 
 @bot.command()
 @commands.check(is_owner)
@@ -197,7 +238,6 @@ async def on_ready():
         await log_to_channel("Could not find the welcome channel.")
     else:
         await log_to_channel(f'Logged in as {bot.user.name}. Now commencing all startup processes.')
-        time.sleep(5)
 
     # Verify Roles Message
     channel1 = bot.get_channel(1479270319431876768)
@@ -209,6 +249,25 @@ async def on_ready():
             message_ids["verify_message_id"] = verify_message.id
             await log_to_channel("Verify role setup complete.")
             time.sleep(5)
+        except Exception as e:
+            await log_to_channel(f"Error setting up verify role: {e}")
+
+    # Reaction Roles Message
+    reaction_roles_channel = bot.get_channel(1479323156584988712)
+    if reaction_roles_channel is not None:
+        try:
+            await reaction_roles_channel.purge(limit=100)
+            roles_msg = await reaction_roles_channel.send("""
+            React down below for your pronoun roles!
+            ♂️ = He/Him
+            ♀️ = She/Her
+            🦖 = They/Them
+            """)
+            await role_msg.add_reaction("♂️")
+            await role_msg.add_reaction("♀️")
+            await role_msg.add_reaction("🦖")
+            message_ids["reaction_roles_id"] = roles_msg.id
+            await log_to_channel("Reaction role setup complete.")
         except Exception as e:
             await log_to_channel(f"Error setting up verify role: {e}")
         await log_to_channel(f'{dripMention} BOT IS SET UP AND READY TO GO!')
